@@ -73,10 +73,9 @@ async fn main() -> Result<()> {
                 .rpc()
                 .block_hash(Some(block_number.into()))
                 .await?
-                .expect(&format!(
-                    "Block hash for block number {} not found",
-                    block_number
-                )),
+                .unwrap_or_else(|| {
+                    panic!("Block hash for block number {} not found", block_number)
+                }),
         )
     } else {
         cli.block_hash
@@ -153,9 +152,9 @@ async fn main() -> Result<()> {
     let block_header = api
         .client
         .rpc()
-        .header(Some(block_hash.into()))
+        .header(Some(block_hash))
         .await?
-        .expect(&format!("Header for block hash {} not found", block_hash));
+        .unwrap_or_else(|| panic!("Header for block hash {} not found", block_hash));
 
     println!(
         "State of balances at block #{:?} ({:?})",

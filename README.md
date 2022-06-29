@@ -12,7 +12,7 @@ $ cargo run -- --url ws://127.0.0.1:9944
 $ cargo run -- --url ws://127.0.0.1:9944 --block-number 100
 ```
 
-A JSON file will be generated under the current directory, which contains all the exported balances and can be used to initialize the genesis state of new network.
+A JSON file `balances_{block_number}.json` will be generated under the current directory, which contains all the exported balances and can be used to initialize the genesis state of new network. Please note that only the new accounts after the genesis are included, the accounts endowned from the genesis are ignored.
 
 Run `cargo run -- --help` to see all the usage.
 
